@@ -50,6 +50,30 @@ tasks.register("count") {
     }
 }
 
+val helloSolarSystem by tasks.registering {
+    doLast {
+        println("Hello Earth")
+    }
+}
+
+helloSolarSystem {
+    doFirst {
+        println("Hello Venus")
+    }
+}
+
+helloSolarSystem {
+    doLast {
+        println("Hello Mars")
+    }
+}
+
+helloSolarSystem {
+    doLast {
+        println("Hello Jupiter")
+    }
+}
+
 fun Task.printName() {
     doLast {
         println(name)
