@@ -85,6 +85,21 @@ tasks.register("printTaskProperties") {
     }
 }
 
+// default tasks
+defaultTasks("clean", "run")
+
+task("clean") {
+    doLast {
+        println("Default Cleaning!")
+    }
+}
+
+tasks.register("run") {
+    doLast {
+        println("Default run!")
+    }
+}
+
 fun Task.printName() {
     doLast {
         println(name)
