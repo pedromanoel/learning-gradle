@@ -104,10 +104,7 @@ tasks.register("run") {
 tasks.register("loadfile") {
     doLast {
         File("./antLoadfileResources")
-                .walk()
-                .filter(File::isFile)
-                .sorted()
-                .forEach { file ->
+                .forEachFileInSortedOrder { file ->
                     ant.withGroovyBuilder {
                         "loadfile"("srcFile" to file, "property" to file.name)
                     }
@@ -117,6 +114,11 @@ tasks.register("loadfile") {
                 }
     }
 }
+
+fun File.forEachFileInSortedOrder(block: (File) -> Unit) = walk()
+        .filter(File::isFile)
+        .sorted()
+        .forEach(block)
 
 fun Task.printName() {
     doLast {
