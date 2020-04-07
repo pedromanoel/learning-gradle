@@ -164,3 +164,26 @@ tasks.register("encode") {
         println(String(encodedString))
     }
 }
+
+val delegate by tasks.registering {
+    doLast { println("task created with delegate property") }
+}
+
+task<Copy>("copy")
+
+tasks.register("inspect") {
+    doLast {
+        val encode by tasks.getting
+        val copy by tasks.getting(Copy::class)
+        listOf(
+                tasks,
+                delegate.get(), // get task provider
+                tasks.named("delegate").get(), // get task provider
+                tasks["delegate"], // get task
+                encode,
+                copy
+        ).forEach {
+            println("$it -> ${it::class}")
+        }
+    }
+}
