@@ -74,6 +74,16 @@ helloSolarSystem {
     }
 }
 
+tasks.register("myTask") {
+    extra["myProperty"] = "My value"
+}
+
+tasks.register("printTaskProperties") {
+    doLast {
+        println(tasks["myTask"].extra["myProperty"])
+    }
+}
+
 fun Task.printName() {
     doLast {
         println(name)
