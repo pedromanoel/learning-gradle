@@ -12,6 +12,20 @@ tasks.register("intro") {
     }
 }
 
+// declare dependency before taskY exists
+tasks.register("taskX") {
+    dependsOn("taskY")
+    doLast {
+        println("$name")
+    }
+}
+
+tasks.register("taskY") {
+    doLast {
+        println("$name")
+    }
+}
+
 // Task with computation
 tasks.register("upper") {
     doLast {
