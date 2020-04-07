@@ -22,6 +22,12 @@ tasks.register("taskY") {
     printName()
 }
 
+fun Task.printName() {
+    doLast {
+        println(name)
+    }
+}
+
 // dynamic tasks
 repeat(4) { count ->
     tasks.register("task$count") {
@@ -120,8 +126,23 @@ fun File.forEachFileInSortedOrder(block: (File) -> Unit) = walk()
         .sorted()
         .forEach(block)
 
-fun Task.printName() {
+// Use gradle lifecycle to change version
+tasks.register("distribution") {
     doLast {
-        println(name)
+        println("We build the zip with version=$version")
+    }
+}
+
+tasks.register("release") {
+    dependsOn("distribution")
+    doLast {
+        println("We release now")
+    }
+}
+// run when the configuration phase ends
+gradle.taskGraph.whenReady {
+    version = when {
+        hasTask(":release") -> "1.0"
+        else -> "1.0-SNAPSHOT"
     }
 }
