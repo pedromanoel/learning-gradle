@@ -1,9 +1,10 @@
+// Simple task
 tasks.register("hello") {
     doLast {
         println("Hello")
     }
 }
-
+// Dependent on hello
 tasks.register("intro") {
     dependsOn("hello")
     doLast {
@@ -11,6 +12,7 @@ tasks.register("intro") {
     }
 }
 
+// Task with computation
 tasks.register("upper") {
     doLast {
         val someString = "mY_NaMe"
@@ -18,7 +20,7 @@ tasks.register("upper") {
         println("Upper case: ${someString.toUpperCase()}")
     }
 }
-
+// Task with computation
 tasks.register("count") {
     doLast {
         repeat(4) { print("$it ")}
