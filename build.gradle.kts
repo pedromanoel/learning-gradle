@@ -23,10 +23,16 @@ tasks.register("taskY") {
 }
 
 // dynamic tasks
-repeat(4) {
-    tasks.register("task$it") {
-        printName()
+repeat(4) { count ->
+    tasks.register("task$count") {
+        doLast {
+            println("I'm task numbered $count")
+        }
     }
+}
+
+tasks.named("task0") {
+    dependsOn("task3", "task2")
 }
 
 // Task with computation
