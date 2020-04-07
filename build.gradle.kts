@@ -15,14 +15,17 @@ tasks.register("intro") {
 // declare dependency before taskY exists
 tasks.register("taskX") {
     dependsOn("taskY")
-    doLast {
-        println("$name")
-    }
+    printName()
 }
 
 tasks.register("taskY") {
-    doLast {
-        println("$name")
+    printName()
+}
+
+// dynamic tasks
+repeat(4) {
+    tasks.register("task$it") {
+        printName()
     }
 }
 
@@ -38,5 +41,11 @@ tasks.register("upper") {
 tasks.register("count") {
     doLast {
         repeat(4) { print("$it ")}
+    }
+}
+
+fun Task.printName() {
+    doLast {
+        println(name)
     }
 }
