@@ -46,7 +46,7 @@ tasks.register("upper") {
 // Task with computation
 tasks.register("count") {
     doLast {
-        repeat(4) { print("$it ")}
+        repeat(4) { print("$it ") }
     }
 }
 
@@ -97,6 +97,24 @@ task("clean") {
 tasks.register("run") {
     doLast {
         println("Default run!")
+    }
+}
+
+// Ant tasks
+tasks.register("loadfile") {
+    doLast {
+        File("./antLoadfileResources")
+                .walk()
+                .filter(File::isFile)
+                .sorted()
+                .forEach { file ->
+                    ant.withGroovyBuilder {
+                        "loadfile"("srcFile" to file, "property" to file.name)
+                    }
+
+                    println(" *** ${file.name} *** ")
+                    println("${ant.properties[file.name]}")
+                }
     }
 }
 
