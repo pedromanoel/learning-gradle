@@ -50,6 +50,7 @@ tasks.register("count") {
     }
 }
 
+// Change task after creation
 val helloSolarSystem by tasks.registering {
     doLast {
         println("Hello Earth")
@@ -73,7 +74,7 @@ helloSolarSystem {
         println("Hello Jupiter")
     }
 }
-
+// Define extra properties for a task
 tasks.register("myTask") {
     extra["myProperty"] = "My value"
 }
